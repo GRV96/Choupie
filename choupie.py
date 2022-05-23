@@ -30,14 +30,24 @@ async def rock_paper_scissors(ctx, choice: discord.Option(str)):
 
 	if result < 0:
 		result = "Choupie wins."
+		embed_color = discord.Color.red()
 
 	elif result == 0:
 		result = "Draw"
+		embed_color = discord.Color.blue()
 
 	else:
 		result = "You're winner!"
+		embed_color = discord.Color.green()
 
-	await ctx.respond(f"You: {choice}\nChoupie: {choupies_choice}\n{result}")
+	embed = discord.Embed(
+		title="Rock, paper, scissors",
+		description=result,
+		color=embed_color)
+	embed.add_field(name="You", value=choice)
+	embed.add_field(name="Choupie", value=choupies_choice)
+
+	await ctx.send(embed=embed)
 
 
 @bot.slash_command(guild_ids=[guild_id], name="work")
